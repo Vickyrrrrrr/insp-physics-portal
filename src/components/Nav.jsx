@@ -56,7 +56,7 @@ export default function Nav({ activePage, setPage }) {
           <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 700, fontSize: '0.95rem', color: 'var(--c-text)', letterSpacing: '-0.02em' }}>
             INSP
           </span>
-          <span className="caption text-dim" style={{ marginLeft: -2 }}>
+          <span className="caption text-dim mobile-hide" style={{ marginLeft: -2 }}>
             • Indian School of Physics
           </span>
         </button>

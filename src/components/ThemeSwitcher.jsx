@@ -4,6 +4,7 @@ import { Layers } from 'lucide-react';
 export default function ThemeSwitcher({ theme, setTheme }) {
   return (
     <div
+      className="theme-switcher-pill"
       style={{
         position: 'fixed',
         bottom: 24,

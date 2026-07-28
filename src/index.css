@@ -93,7 +93,7 @@ body {
 /* Refined Compact Typography Hierarchy */
 .display-xl {
   font-family: var(--font-sans);
-  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-size: clamp(1.75rem, 4vw, 3rem);
   line-height: 1.15;
   letter-spacing: -0.03em;
   font-weight: 800;
@@ -101,7 +101,7 @@ body {
 
 .display-lg {
   font-family: var(--font-sans);
-  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-size: clamp(1.35rem, 3vw, 2.25rem);
   line-height: 1.2;
   letter-spacing: -0.025em;
   font-weight: 700;
@@ -109,7 +109,7 @@ body {
 
 .display-md {
   font-family: var(--font-sans);
-  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
   line-height: 1.25;
   letter-spacing: -0.02em;
   font-weight: 700;
@@ -155,7 +155,7 @@ body {
 
 @media (max-width: 640px) {
   .container {
-    padding: 0 1.25rem;
+    padding: 0 1rem;
   }
 }
 
@@ -283,20 +283,43 @@ body {
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* Mobile Breakpoint (< 768px) */
+/* Mobile Clean Uncluttered Overrides (< 768px) */
 @media (max-width: 768px) {
-  .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; gap: 1rem; }
+  .grid-4, .grid-3, .grid-2 { 
+    grid-template-columns: 1fr !important; 
+    gap: 0.85rem !important; 
+  }
   
   .btn-lg {
-    padding: 0.65rem 1.15rem;
-    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.88rem;
     width: 100%;
     justify-content: center;
+  }
+
+  .card {
+    padding: 1rem !important;
+  }
+
+  section {
+    padding: 2.25rem 0 !important;
   }
 
   /* Responsive Spotlight Grid */
   section .card[style*="grid-template-columns"] {
     grid-template-columns: 1fr !important;
+  }
+
+  /* Hide long subtitles on mobile header */
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .theme-switcher-pill {
+    bottom: 12px !important;
+    right: 12px !important;
+    transform: scale(0.85);
+    transform-origin: bottom right;
   }
 }
 

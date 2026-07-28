@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { INSP_COURSES } from '../services/apiMock';
-import { Search, ArrowRight, Video, FileText, Shield, X, Check, Sparkles, BookOpen, UserCheck, HelpCircle } from 'lucide-react';
+import { Search, ArrowRight, Video, FileText, Check } from 'lucide-react';
+import { Badge } from '../components/ui/Badge';
 
 function PackageCard({ course, discountRate, onBuy }) {
   const [activeTab, setActiveTab] = useState('video');
@@ -13,7 +14,7 @@ function PackageCard({ course, discountRate, onBuy }) {
     <div 
       className="card" 
       style={{ 
-        padding: '1.75rem', 
+        padding: '1.25rem', 
         display: 'flex', 
         flexDirection: 'column', 
         justify: 'space-between',
@@ -22,52 +23,55 @@ function PackageCard({ course, discountRate, onBuy }) {
         position: 'relative'
       }}
     >
-      {isFlagship && (
-        <span className="badge badge-accent" style={{ position: 'absolute', top: -11, right: 20, background: 'var(--c-bg) !important', padding: '0.15rem 0.6rem' }}>
-          Flagship Program
-        </span>
-      )}
-
       <div>
         {/* Top Badges */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem' }}>
-          <span className="badge badge-subtle">{course.badge}</span>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem', flexWrap: 'wrap', gap: '0.4rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span className="badge badge-subtle">{course.badge}</span>
+            {isFlagship && (
+              <span className="badge badge-accent" style={{ background: 'var(--c-accent-dim)', padding: '0.15rem 0.5rem', borderRadius: 4 }}>
+                Flagship Program
+              </span>
+            )}
+          </div>
           <span className="caption mono text-dim">{course.targetAudience}</span>
         </div>
 
         {/* Title */}
-        <h3 className="heading" style={{ fontSize: '1.15rem', marginBottom: '0.35rem', lineHeight: 1.3 }}>
+        <h3 className="heading" style={{ fontSize: '1.1rem', marginBottom: '0.25rem', lineHeight: 1.3 }}>
           {course.title}
         </h3>
-        <p className="caption" style={{ color: 'var(--c-accent)', fontWeight: 600, marginBottom: '1.5rem' }}>
+        <p className="caption" style={{ color: 'var(--c-accent)', fontWeight: 600, marginBottom: '1.15rem' }}>
           {course.subtitle}
         </p>
 
-        {/* Pricing Box */}
-        <div className="card-inset" style={{ padding: '1.1rem 1.25rem', marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.6rem' }}>
-              <span className="mono" style={{ fontSize: '1.65rem', fontWeight: 800, color: 'var(--c-text)' }}>
-                ₹{finalPrice.toLocaleString('en-IN')}
-              </span>
-              {discountRate > 0 && (
-                <span className="mono caption" style={{ textDecoration: 'line-through', color: 'var(--c-text-dim)', fontSize: '0.9rem' }}>
-                  ₹{course.price.toLocaleString('en-IN')}
+        {/* Responsive Pricing Box */}
+        <div className="card-inset" style={{ padding: '0.85rem 1rem', marginBottom: '1.15rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
+                <span className="mono" style={{ fontSize: '1.45rem', fontWeight: 800, color: 'var(--c-text)' }}>
+                  ₹{finalPrice.toLocaleString('en-IN')}
                 </span>
-              )}
-            </div>
-            <div className="caption text-green" style={{ fontWeight: 600, marginTop: 2 }}>
-              GST Included {discountRate > 0 && `• Save ₹${savedAmount.toLocaleString('en-IN')}`}
+                {discountRate > 0 && (
+                  <span className="mono caption" style={{ textDecoration: 'line-through', color: 'var(--c-text-dim)', fontSize: '0.85rem' }}>
+                    ₹{course.price.toLocaleString('en-IN')}
+                  </span>
+                )}
+              </div>
+              <div className="caption text-green" style={{ fontWeight: 600, marginTop: 2, fontSize: '0.76rem' }}>
+                GST Included {discountRate > 0 && `• Save ₹${savedAmount.toLocaleString('en-IN')}`}
+              </div>
             </div>
           </div>
 
-          <button className="btn btn-primary" onClick={onBuy} style={{ fontSize: '0.85rem' }}>
+          <button className="btn btn-primary" onClick={onBuy} style={{ fontSize: '0.85rem', width: '100%', justifyContent: 'center' }}>
             Enroll Now <ArrowRight size={14} />
           </button>
         </div>
 
         {/* Tab Switcher */}
-        <div style={{ display: 'flex', borderBottom: '1px solid var(--c-border)', marginBottom: '1rem' }}>
+        <div style={{ display: 'flex', borderBottom: '1px solid var(--c-border)', marginBottom: '0.85rem' }}>
           <button
             onClick={() => setActiveTab('video')}
             style={{
@@ -76,18 +80,18 @@ function PackageCard({ course, discountRate, onBuy }) {
               border: 'none',
               borderBottom: activeTab === 'video' ? '2px solid var(--c-accent)' : '2px solid transparent',
               color: activeTab === 'video' ? 'var(--c-accent)' : 'var(--c-text-dim)',
-              padding: '0.45rem',
-              fontSize: '0.82rem',
+              padding: '0.4rem',
+              fontSize: '0.8rem',
               fontWeight: 600,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.4rem',
+              justify: 'center',
+              gap: '0.35rem',
               fontFamily: 'var(--font-sans)'
             }}
           >
-            <Video size={14} /> Video Portal
+            <Video size={13} /> Video Portal
           </button>
 
           <button
@@ -98,272 +102,191 @@ function PackageCard({ course, discountRate, onBuy }) {
               border: 'none',
               borderBottom: activeTab === 'exam' ? '2px solid var(--c-green)' : '2px solid transparent',
               color: activeTab === 'exam' ? 'var(--c-green)' : 'var(--c-text-dim)',
-              padding: '0.45rem',
-              fontSize: '0.82rem',
+              padding: '0.4rem',
+              fontSize: '0.8rem',
               fontWeight: 600,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.4rem',
+              justify: 'center',
+              gap: '0.35rem',
               fontFamily: 'var(--font-sans)'
             }}
           >
-            <FileText size={14} /> AITS Exam Portal
+            <FileText size={13} /> AITS Exam Portal
           </button>
         </div>
 
         {/* Tab Feature Items */}
         {activeTab === 'video' ? (
           <div>
-            <div className="caption mono text-amber" style={{ marginBottom: '0.65rem', fontWeight: 600 }}>
+            <div className="caption mono text-amber" style={{ marginBottom: '0.5rem', fontWeight: 600, fontSize: '0.76rem' }}>
               Validity: {course.videoPortal.validity}
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {course.videoPortal.features.slice(0, 4).map((feat, idx) => (
-                <div key={idx} className="body-sm" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.85rem' }}>
-                  <Check size={14} color="var(--c-accent)" style={{ marginTop: 3, flexShrink: 0 }} />
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              {course.videoPortal.features.slice(0, 3).map((feat, idx) => (
+                <li key={idx} className="body-sm" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.45rem', fontSize: '0.8rem' }}>
+                  <Check size={13} color="var(--c-accent)" style={{ marginTop: 3, flexShrink: 0 }} />
                   <span>{feat}</span>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         ) : (
           <div>
-            <div className="caption mono text-green" style={{ marginBottom: '0.65rem', fontWeight: 600 }}>
-              Validity: {course.examPortal.validity} • {course.examPortal.practiceExams} Practice Exams
+            <div className="caption mono text-green" style={{ marginBottom: '0.5rem', fontWeight: 600, fontSize: '0.76rem' }}>
+              Exams Included: {course.examPortal.totalExams || course.examPortal.practiceExams || 100}
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {course.examPortal.features.map((feat, idx) => (
-                <div key={idx} className="body-sm" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.85rem' }}>
-                  <Check size={14} color="var(--c-green)" style={{ marginTop: 3, flexShrink: 0 }} />
+            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              {course.examPortal.features.slice(0, 3).map((feat, idx) => (
+                <li key={idx} className="body-sm" style={{ display: 'flex', alignItems: 'flex-start', gap: '0.45rem', fontSize: '0.8rem' }}>
+                  <Check size={13} color="var(--c-green)" style={{ marginTop: 3, flexShrink: 0 }} />
                   <span>{feat}</span>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         )}
-
       </div>
-
     </div>
   );
 }
 
 export default function PackagesPage({ setPage }) {
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [category, setCategory] = useState('All');
+  const [search, setSearch] = useState('');
   const [couponCode, setCouponCode] = useState('FLAT10');
-  const [couponApplied, setCouponApplied] = useState(true);
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [appliedDiscount, setAppliedDiscount] = useState(0.10);
+  const [couponStatus, setCouponStatus] = useState({ type: 'success', msg: 'FLAT10 applied (10% OFF)' });
 
-  const categories = [
-    { id: 'all', label: 'All Programs' },
-    { id: 'foundation', label: 'Foundation (9th-10th)' },
-    { id: '2year', label: '2-Year (Class 11th)' },
-    { id: '1year', label: '1-Year (Class 12th & Droppers)' },
-    { id: 'crash', label: 'Crash Course' },
-    { id: 'pass', label: 'AITS Test Passes' },
-  ];
-
-  const discountRate = useMemo(() => {
-    if (!couponApplied || !couponCode.trim()) return 0;
-    const clean = couponCode.trim().toUpperCase();
-    if (clean === 'FLAT10') return 0.10;
-    if (clean.length >= 4) return 0.11;
-    return 0;
-  }, [couponCode, couponApplied]);
+  const categories = ['All', 'Crash Course', 'Foundation', 'JEE Mains+Adv', 'Physics+Chemistry', 'Exam Pass'];
 
   const filteredCourses = useMemo(() => {
-    return INSP_COURSES.filter(course => {
-      const matchCat = activeCategory === 'all' || course.category === activeCategory;
-      const matchSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          course.subtitle.toLowerCase().includes(searchQuery.toLowerCase());
+    return INSP_COURSES.filter(c => {
+      let matchCat = true;
+      if (category === 'Crash Course') matchCat = c.category === 'crash';
+      else if (category === 'Foundation') matchCat = c.category === 'foundation';
+      else if (category === 'JEE Mains+Adv') matchCat = c.category === '2year' || c.category === '1year';
+      else if (category === 'Physics+Chemistry') matchCat = c.title.toLowerCase().includes('chemistry') || c.badge.toLowerCase().includes('chemistry') || c.id.startsWith('pc-');
+      else if (category === 'Exam Pass') matchCat = c.category === 'pass';
+
+      const matchSearch = c.title.toLowerCase().includes(search.toLowerCase()) || 
+                          c.subtitle.toLowerCase().includes(search.toLowerCase());
       return matchCat && matchSearch;
     });
-  }, [activeCategory, searchQuery]);
+  }, [category, search]);
+
+  const handleApplyCoupon = (e) => {
+    e.preventDefault();
+    const code = couponCode.trim().toUpperCase();
+    if (!code) {
+      setAppliedDiscount(0);
+      setCouponStatus({ type: '', msg: '' });
+      return;
+    }
+    if (code === 'FLAT10') {
+      setAppliedDiscount(0.10);
+      setCouponStatus({ type: 'success', msg: 'FLAT10 applied (10% OFF)' });
+    } else if (code.length >= 4) {
+      setAppliedDiscount(0.11);
+      setCouponStatus({ type: 'success', msg: `Referral code ${code} applied (11% OFF + Referral Coins)` });
+    } else {
+      setAppliedDiscount(0);
+      setCouponStatus({ type: 'error', msg: 'Invalid coupon code' });
+    }
+  };
+
+  const handleEnroll = (course) => {
+    const finalPrice = Math.round(course.price * (1 - appliedDiscount));
+    alert(`Enrolling in ${course.title} for ₹${finalPrice.toLocaleString('en-IN')}. Redirecting to INSP Secure Checkout...`);
+  };
 
   return (
-    <main style={{ paddingTop: 60, minHeight: '100vh' }}>
+    <main style={{ paddingTop: 84, minHeight: '100vh' }}>
       
-      {/* Hero Header */}
-      <div style={{ padding: '4.5rem 0 3.5rem', borderBottom: '1px solid var(--c-border)' }}>
+      {/* Header */}
+      <section style={{ padding: '3.5rem 0 2rem', borderBottom: '1px solid var(--c-border)' }}>
         <div className="container">
-          <div className="badge badge-accent" style={{ marginBottom: '1.25rem' }}>INSP Premium Admissions</div>
+          <Badge variant="gold" style={{ marginBottom: '0.75rem' }}>Enrollment Programs</Badge>
           <h1 className="display-lg" style={{ marginBottom: '0.85rem' }}>
-            Structured Physics & Chemistry Programs
+            INSP Premium Packages
           </h1>
-          <p className="body-lg" style={{ maxWidth: 640 }}>
-            Every subscription includes complete Video Portal access, AITS mock test series, and online reader access to INSP COPs books by Nitin Sachan Sir (B.Tech IIT Madras).
+          <p className="body-lg" style={{ maxWidth: 760 }}>
+            Every plan includes full Video Portal masterclass access, INSP COPs books, and AITS exam series.
           </p>
         </div>
-      </div>
+      </section>
 
-      {/* Interactive Coupon Calculator Bar */}
-      <div style={{ background: 'var(--c-surface)', borderBottom: '1px solid var(--c-border)', padding: '1.25rem 0' }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-            <span className="mono text-amber" style={{ background: 'var(--c-surface-subtle)', padding: '0.3rem 0.75rem', borderRadius: 6, border: '1px solid var(--c-border)', fontWeight: 700, fontSize: '0.88rem' }}>
-              FLAT10
-            </span>
-            <span className="body-sm">
-              Use code <strong>FLAT10</strong> for 10% instant discount, or a Student Referral code for 11% OFF + Referral Coins.
-            </span>
+      {/* Filter & Coupon Strip */}
+      <section style={{ padding: '1.5rem 0', borderBottom: '1px solid var(--c-border)', background: 'var(--c-surface)' }}>
+        <div className="container">
+          
+          {/* Coupon Input Box */}
+          <div className="card-inset" style={{ padding: '1rem 1.15rem', marginBottom: '1.25rem' }}>
+            <form onSubmit={handleApplyCoupon} style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
+              <span className="caption" style={{ fontWeight: 600, minWidth: 100 }}>Promo / Referral:</span>
+              <input 
+                type="text" 
+                className="input" 
+                value={couponCode} 
+                onChange={(e) => setCouponCode(e.target.value)} 
+                placeholder="Enter FLAT10 or referral code"
+                style={{ flex: 1, minWidth: 180, textTransform: 'uppercase' }}
+              />
+              <button type="submit" className="btn btn-secondary" style={{ fontSize: '0.85rem' }}>
+                Apply
+              </button>
+            </form>
+            {couponStatus.msg && (
+              <div className={`caption ${couponStatus.type === 'success' ? 'text-green' : 'text-amber'}`} style={{ marginTop: '0.45rem', fontWeight: 600 }}>
+                {couponStatus.msg}
+              </div>
+            )}
           </div>
 
-          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-            <input 
-              className="input"
-              value={couponCode}
-              onChange={(e) => { setCouponCode(e.target.value); setCouponApplied(true); }}
-              placeholder="Enter Coupon Code"
-              style={{ width: 170, fontSize: '0.85rem' }}
-            />
-            <button 
-              className={couponApplied ? "btn btn-secondary" : "btn btn-primary"}
-              onClick={() => setCouponApplied(!couponApplied)}
-              style={{ fontSize: '0.85rem' }}
-            >
-              {couponApplied ? "✓ Discount Applied" : "Apply Code"}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Filter Tabs & Search */}
-      <div style={{ borderBottom: '1px solid var(--c-border)', padding: '1rem 0' }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-          <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+          {/* Smooth Horizontal Category Bar */}
+          <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', paddingBottom: '0.25rem', scrollbarWidth: 'none' }}>
             {categories.map(cat => (
               <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={activeCategory === cat.id ? "btn btn-secondary" : "btn btn-ghost"}
-                style={{ fontSize: '0.85rem', padding: '0.45rem 0.95rem' }}
+                key={cat}
+                onClick={() => setCategory(cat)}
+                style={{
+                  background: category === cat ? 'var(--c-accent)' : 'var(--c-surface-subtle)',
+                  color: category === cat ? '#ffffff' : 'var(--c-text-muted)',
+                  border: '1px solid ' + (category === cat ? 'var(--c-accent)' : 'var(--c-border)'),
+                  padding: '0.35rem 0.85rem',
+                  borderRadius: 9999,
+                  fontSize: '0.8rem',
+                  fontWeight: 600,
+                  whiteSpace: 'nowrap',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                  fontFamily: 'var(--font-sans)'
+                }}
               >
-                {cat.label}
+                {cat}
               </button>
             ))}
           </div>
 
-          <div style={{ position: 'relative', width: 220 }}>
-            <input 
-              className="input"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Filter course..."
-              style={{ paddingLeft: '2.1rem', fontSize: '0.85rem' }}
-            />
-            <Search size={14} color="var(--c-text-dim)" style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)' }} />
-          </div>
         </div>
-      </div>
+      </section>
 
-      {/* Course Cards Grid */}
-      <div style={{ padding: '3.5rem 0 5rem' }}>
+      {/* Package Cards Grid */}
+      <section style={{ padding: '3rem 0' }}>
         <div className="container">
           <div className="grid-2">
             {filteredCourses.map(course => (
               <PackageCard 
-                key={course.id}
-                course={course}
-                discountRate={discountRate}
-                onBuy={() => setSelectedCourse(course)}
+                key={course.id} 
+                course={course} 
+                discountRate={appliedDiscount}
+                onBuy={() => handleEnroll(course)}
               />
             ))}
           </div>
         </div>
-      </div>
-
-      {/* Why INSP Premium Comparison Table */}
-      <div style={{ background: 'var(--c-surface)', borderTop: '1px solid var(--c-border)', borderBottom: '1px solid var(--c-border)', padding: '4.5rem 0' }}>
-        <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <div className="badge badge-accent" style={{ marginBottom: '0.75rem' }}>Comparison Matrix</div>
-            <h2 className="display-md">Why Aspirants Choose INSP Premium</h2>
-          </div>
-
-          <div className="card" style={{ overflow: 'hidden' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: '1rem 1.5rem', background: 'var(--c-surface-subtle)', borderBottom: '1px solid var(--c-border)' }}>
-              <span className="caption" style={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Feature</span>
-              <span className="caption" style={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', textAlign: 'center' }}>Free YouTube</span>
-              <span className="caption text-accent" style={{ fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', textAlign: 'center' }}>INSP Premium</span>
-            </div>
-
-            {[
-              { feature: "Pathfinder & Irodov Masterclasses", free: "Selected videos", premium: "Full 20,000+ Problem Archive" },
-              { feature: "Nitin Sachan Sir (IITM) Mentorship", free: "No", premium: "Personal Mentorship & Backlog Tracker" },
-              { feature: "AITS Grand Test Series (GTs)", free: "No", premium: "Up to 1,600 Practice Mock Tests" },
-              { feature: "INSP COPs Hardcover Book Reader", free: "No", premium: "Full Online Access Included" },
-              { feature: "Ranker Private Forum & Coin Rewards", free: "Read-only", premium: "Post Threads & Redeem Hardware Rewards" }
-            ].map((row, idx) => (
-              <div key={idx} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', padding: '1rem 1.5rem', borderBottom: '1px solid var(--c-border)', alignItems: 'center' }}>
-                <span className="body-sm" style={{ fontWeight: 500, color: 'var(--c-text)' }}>{row.feature}</span>
-                <span className="caption text-dim" style={{ textAlign: 'center' }}>{row.free}</span>
-                <span className="body-sm text-accent" style={{ fontWeight: 600, textAlign: 'center' }}>✓ {row.premium}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Modal Checkout Invoice */}
-      {selectedCourse && (
-        <div style={{
-          position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-          background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(12px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 1000, padding: '1.25rem'
-        }}>
-          <div className="card" style={{ width: '100%', maxWidth: 480, padding: '1.75rem', background: '#09090b' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-              <h3 className="heading" style={{ fontSize: '1.1rem' }}>Order Invoice Summary</h3>
-              <button onClick={() => setSelectedCourse(null)} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}>
-                <X size={18} />
-              </button>
-            </div>
-
-            <div className="card-inset" style={{ padding: '0.85rem 1rem', marginBottom: '1rem' }}>
-              <div className="caption mono text-accent">PACKAGE</div>
-              <div style={{ fontWeight: 600, fontSize: '0.95rem', marginTop: 2 }}>{selectedCourse.title}</div>
-              <div className="caption">{selectedCourse.subtitle}</div>
-            </div>
-
-            <div style={{ borderTop: '1px solid var(--c-border)', borderBottom: '1px solid var(--c-border)', padding: '0.85rem 0', marginBottom: '1.25rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '0.4rem', color: 'var(--c-text-muted)' }}>
-                <span>Package List Price:</span>
-                <span className="mono">₹{selectedCourse.price.toLocaleString('en-IN')}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '0.4rem', color: 'var(--c-green)' }}>
-                <span>Discount ({couponCode || 'FLAT10'}):</span>
-                <span className="mono">- ₹{Math.round(selectedCourse.price * discountRate).toLocaleString('en-IN')}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', color: 'var(--c-text-dim)' }}>
-                <span>18% GST (Included):</span>
-                <span className="mono">₹{Math.round(selectedCourse.price * (1 - discountRate) * 0.18 / 1.18).toLocaleString('en-IN')}</span>
-              </div>
-            </div>
-
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-              <div>
-                <span className="caption">Total Amount Payable</span>
-                <div className="mono" style={{ fontSize: '1.6rem', fontWeight: 800 }}>
-                  ₹{Math.round(selectedCourse.price * (1 - discountRate)).toLocaleString('en-IN')}
-                </div>
-              </div>
-              <span className="badge badge-green">GST Included</span>
-            </div>
-
-            <button 
-              className="btn btn-primary"
-              style={{ width: '100%', justifyContent: 'center', padding: '0.75rem' }}
-              onClick={() => alert(`Redirecting to Razorpay Gateway for ₹${Math.round(selectedCourse.price * (1 - discountRate)).toLocaleString('en-IN')}... (Connected via backend API)`)}
-            >
-              <Shield size={16} /> Proceed to Secure Payment
-            </button>
-          </div>
-        </div>
-      )}
+      </section>
 
     </main>
   );

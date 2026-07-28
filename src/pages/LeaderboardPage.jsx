@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Trophy, Award, Coins, TrendingUp } from 'lucide-react';
+import { Badge } from '../components/ui/Badge';
 
 const LEADERBOARD = [
   { rank: 1,  name: 'Aditya',                  rating: 238010, tier: 'Lord of Circinus',   photoUrl: 'https://www.inspedu.in/assets/images/students/photo_2023-07-01_13-31-44.jpg' },
@@ -50,66 +51,70 @@ function Avatar({ name, photoUrl, size = 36 }) {
 export default function LeaderboardPage({ setPage }) {
   const [tab, setTab] = useState('overall');
   const top3 = LEADERBOARD.slice(0, 3);
-  const podium = [top3[1], top3[0], top3[2]];
 
   return (
-    <main style={{ paddingTop: 60, minHeight: '100vh' }}>
+    <main style={{ paddingTop: 84, minHeight: '100vh' }}>
 
       {/* Header */}
-      <div style={{ padding: '4rem 0 3rem', borderBottom: '1px solid var(--c-border)' }}>
+      <div style={{ padding: '3.5rem 0 2.5rem', borderBottom: '1px solid var(--c-border)' }}>
         <div className="container">
-          <div className="badge badge-gold" style={{ marginBottom: '1rem' }}>AITS Rankings</div>
-          <h1 className="display-lg" style={{ marginBottom: '0.75rem' }}>INSP Leaderboard</h1>
-          <p className="body-lg" style={{ maxWidth: 600 }}>
+          <Badge variant="gold" style={{ marginBottom: '0.75rem' }}>Rankings & Rewards</Badge>
+          <h1 className="display-lg" style={{ marginBottom: '0.85rem' }}>
+            INSP Leaderboard
+          </h1>
+          <p className="body-lg" style={{ maxWidth: 760 }}>
             Ranked by cumulative problem-solving score across all INSP AITS tests and practice exams. Updated weekly.
           </p>
         </div>
       </div>
 
-      {/* Top 3 Podium */}
-      <div style={{ background: 'var(--c-surface)', borderBottom: '1px solid var(--c-border)', padding: '3rem 0' }}>
+      {/* Podium Top 3 */}
+      <div style={{ padding: '3rem 0', borderBottom: '1px solid var(--c-border)', background: 'var(--c-surface)' }}>
         <div className="container">
-          <p className="caption" style={{ textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '1.75rem', textAlign: 'center' }}>
-            Top Rankers
-          </p>
-
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
-            {podium.map(student => {
+          <div className="podium-grid">
+            {top3.map((student) => {
+              if (!student) return null;
               const isFirst = student.rank === 1;
               return (
                 <div
                   key={student.rank}
-                  className="card"
                   style={{
-                    width: 210,
-                    padding: '1.5rem 1.25rem',
+                    background: isFirst ? 'var(--c-surface-hover)' : 'var(--c-surface)',
+                    border: '1px solid ' + (isFirst ? 'var(--c-accent)' : 'var(--c-border)'),
+                    borderRadius: 14,
+                    padding: '1.25rem 1.5rem',
                     display: 'flex',
-                    flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.65rem',
-                    border: isFirst ? '1px solid var(--c-accent)' : '1px solid var(--c-border)',
-                    background: isFirst ? 'var(--c-surface-subtle)' : 'var(--c-surface)',
+                    justify: 'space-between',
+                    gap: '1rem',
                   }}
                 >
-                  <span className="mono caption text-dim" style={{ fontWeight: 700 }}>
-                    #{String(student.rank).padStart(2, '0')}
-                  </span>
-                  
-                  <Avatar name={student.name} photoUrl={student.photoUrl} size={isFirst ? 54 : 44} />
-                  
-                  <div style={{ textAlign: 'center' }}>
-                    <p className="heading" style={{ fontSize: isFirst ? '1rem' : '0.9rem', marginBottom: 2 }}>
-                      {student.name}
-                    </p>
-                    <p className="mono text-accent" style={{ fontSize: '0.9rem', fontWeight: 600 }}>
-                      {student.rating.toLocaleString('en-IN')} pts
-                    </p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', minWidth: 0 }}>
+                    <span className="mono" style={{
+                      fontSize: '1.1rem',
+                      fontWeight: 800,
+                      color: isFirst ? 'var(--c-amber)' : 'var(--c-text-dim)',
+                      minWidth: 24
+                    }}>
+                      #{student.rank}
+                    </span>
+
+                    <Avatar name={student.name} photoUrl={student.photoUrl} size={isFirst ? 48 : 40} />
+
+                    <div style={{ minWidth: 0 }}>
+                      <p className="heading" style={{ fontSize: '0.95rem', marginBottom: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {student.name}
+                      </p>
+                      <span className={tierBadgeClass(student.tier)} style={{ fontSize: '0.72rem' }}>
+                        {student.tier}
+                      </span>
+                    </div>
                   </div>
 
-                  <span className={tierBadgeClass(student.tier)}>
-                    {student.tier}
-                  </span>
+                  <div className="mono text-accent" style={{ fontSize: '0.95rem', fontWeight: 700, flexShrink: 0, textAlign: 'right' }}>
+                    {student.rating.toLocaleString('en-IN')}
+                    <div className="caption text-dim" style={{ fontSize: '0.7rem', fontWeight: 400 }}>pts</div>
+                  </div>
                 </div>
               );
             })}
@@ -133,100 +138,64 @@ export default function LeaderboardPage({ setPage }) {
         </div>
       </div>
 
-      {/* Full Rankings Table */}
+      {/* Full Rankings Table with Horizontal Scroll Support */}
       <div style={{ padding: '2rem 0 4rem' }}>
         <div className="container">
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '60px 1fr 140px 150px',
-            gap: '1rem',
-            padding: '0.5rem 1rem',
-            borderBottom: '1px solid var(--c-border)',
-            marginBottom: '0.25rem',
-          }}>
-            {['Rank', 'Student Name', 'Rating', 'Tier'].map(h => (
-              <p key={h} className="caption" style={{ textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--c-text-dim)' }}>{h}</p>
-            ))}
-          </div>
-
-          {LEADERBOARD.map(student => (
-            <div
-              key={student.rank}
-              style={{
+          <div className="table-responsive">
+            <div style={{ minWidth: 540 }}>
+              
+              {/* Header Row */}
+              <div style={{
                 display: 'grid',
-                gridTemplateColumns: '60px 1fr 140px 150px',
+                gridTemplateColumns: '50px 1.2fr 110px 140px',
                 gap: '1rem',
-                padding: '0.75rem 1rem',
+                padding: '0.5rem 1rem',
                 borderBottom: '1px solid var(--c-border)',
-                alignItems: 'center',
-                transition: 'background-color var(--t-fast)',
-              }}
-              onMouseEnter={e => e.currentTarget.style.background = 'var(--c-surface-subtle)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
-            >
-              <span className="mono caption text-dim" style={{ fontWeight: 600 }}>
-                #{String(student.rank).padStart(2, '0')}
-              </span>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <Avatar name={student.name} photoUrl={student.photoUrl} size={32} />
-                <span className="heading" style={{ fontSize: '0.88rem' }}>
-                  {student.name}
-                </span>
+                marginBottom: '0.25rem',
+              }}>
+                {['Rank', 'Student Name', 'Rating', 'Tier'].map(h => (
+                  <p key={h} className="caption" style={{ textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--c-text-dim)', fontWeight: 600 }}>{h}</p>
+                ))}
               </div>
 
-              <span className="mono text-accent" style={{ fontWeight: 600, fontSize: '0.88rem' }}>
-                {student.rating.toLocaleString('en-IN')}
-              </span>
+              {/* Data Rows */}
+              {LEADERBOARD.map(student => (
+                <div
+                  key={student.rank}
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '50px 1.2fr 110px 140px',
+                    gap: '1rem',
+                    padding: '0.75rem 1rem',
+                    borderBottom: '1px solid var(--c-border)',
+                    alignItems: 'center',
+                    transition: 'background-color var(--t-fast)',
+                  }}
+                >
+                  <span className="mono caption text-dim" style={{ fontWeight: 600 }}>
+                    #{String(student.rank).padStart(2, '0')}
+                  </span>
 
-              <span className={tierBadgeClass(student.tier)} style={{ width: 'fit-content' }}>
-                {student.tier}
-              </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: 0 }}>
+                    <Avatar name={student.name} photoUrl={student.photoUrl} size={32} />
+                    <span className="heading" style={{ fontSize: '0.88rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {student.name}
+                    </span>
+                  </div>
+
+                  <span className="mono text-accent" style={{ fontWeight: 600, fontSize: '0.88rem' }}>
+                    {student.rating.toLocaleString('en-IN')}
+                  </span>
+
+                  <div>
+                    <span className={tierBadgeClass(student.tier)} style={{ fontSize: '0.72rem' }}>
+                      {student.tier}
+                    </span>
+                  </div>
+                </div>
+              ))}
+
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* INSP Coins Info */}
-      <div style={{ background: 'var(--c-surface)', borderTop: '1px solid var(--c-border)', padding: '4rem 0' }}>
-        <div className="container">
-          <div className="grid-2" style={{ alignItems: 'center' }}>
-            
-            <div>
-              <div className="badge badge-gold" style={{ marginBottom: '0.75rem' }}>INSP Coins Program</div>
-              <h2 className="display-md" style={{ marginBottom: '1rem' }}>
-                Earn coins through test performance
-              </h2>
-              <p className="body-sm" style={{ marginBottom: '1.5rem', maxWidth: 440 }}>
-                Every AITS exam completed and Pathfinder problem solved earns INSP Coins. 1 Coin = ₹1 INR, redeemable in the INSP Store for Apple hardware, Adidas apparel, and COPs book sets.
-              </p>
-              <button
-                onClick={() => { setPage('merch'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                className="btn btn-primary"
-              >
-                View INSP Rewards Store
-              </button>
-            </div>
-
-            <div className="grid-2">
-              <div className="card-inset" style={{ padding: '1.25rem', textAlign: 'center' }}>
-                <div className="mono text-gold" style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: 4 }}>1 Coin = ₹1</div>
-                <div className="caption">Redemption Rate</div>
-              </div>
-              <div className="card-inset" style={{ padding: '1.25rem', textAlign: 'center' }}>
-                <div className="mono" style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: 4 }}>99,900</div>
-                <div className="caption">Coins for Apple iPad Pro</div>
-              </div>
-              <div className="card-inset" style={{ padding: '1.25rem', textAlign: 'center' }}>
-                <div className="mono" style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: 4 }}>3,499</div>
-                <div className="caption">Coins for Adidas Jacket</div>
-              </div>
-              <div className="card-inset" style={{ padding: '1.25rem', textAlign: 'center' }}>
-                <div className="mono text-accent" style={{ fontSize: '1.2rem', fontWeight: 700, marginBottom: 4 }}>Weekly</div>
-                <div className="caption">Rankings Reset</div>
-              </div>
-            </div>
-
           </div>
         </div>
       </div>

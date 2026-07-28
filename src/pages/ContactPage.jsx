@@ -11,6 +11,7 @@ import {
   Send,
   MessageCircle,
 } from "lucide-react";
+import { Badge } from "../components/ui/Badge";
 
 const FAQS = [
   {
@@ -91,7 +92,7 @@ function FAQItem({ faq, index, openIndex, setOpenIndex }) {
           style={{
             marginTop: "0.75rem",
             lineHeight: 1.7,
-            paddingRight: "2rem",
+            paddingRight: "1rem",
           }}
         >
           {faq.answer}
@@ -124,439 +125,325 @@ export default function ContactPage({ setPage }) {
   }
 
   return (
-    <div style={{ background: "var(--c-bg)", minHeight: "100vh" }}>
+    <main style={{ paddingTop: 84, minHeight: "100vh", background: "var(--c-bg)" }}>
 
       {/* PAGE HEADER */}
-      <div
-        className="container"
-        style={{ paddingTop: "100px", paddingBottom: "3rem", textAlign: "center" }}
-      >
-        <span
-          className="badge badge-accent"
-          style={{ display: "inline-flex", alignItems: "center", marginBottom: "1.25rem" }}
-        >
-          <MessageCircle size={13} style={{ marginRight: "0.4rem" }} />
-          Get in Touch
-        </span>
-
-        <h1
-          className="display-lg"
-          style={{
-            marginBottom: "1rem",
-            background: "linear-gradient(135deg, var(--c-text) 60%, var(--c-accent))",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-          }}
-        >
-          Contact INSP
-        </h1>
-
-        <p
-          className="body-lg text-muted"
-          style={{ maxWidth: "500px", margin: "0 auto" }}
-        >
-          For course queries, technical support, or partnership inquiries.
-        </p>
-      </div>
-
-      {/* MAIN 2-COLUMN LAYOUT */}
-      <div
-        className="container"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "minmax(0,1fr) minmax(0,1.55fr)",
-          gap: "2rem",
-          alignItems: "start",
-          paddingBottom: "4rem",
-        }}
-      >
-        {/* LEFT – Contact Info */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-
-          {/* Helpline */}
-          <div
-            className="card-inset"
-            style={{ padding: "1.25rem", display: "flex", alignItems: "center", gap: "0.75rem" }}
-          >
-            <div
-              style={{
-                width: 38,
-                height: 38,
-                borderRadius: "10px",
-                background: "rgba(99,102,241,0.13)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexShrink: 0,
-              }}
-            >
-              <Phone size={16} style={{ color: "var(--c-accent)" }} />
-            </div>
-            <div>
-              <p
-                className="mono"
-                style={{ fontSize: "1rem", fontWeight: 600, color: "var(--c-text)", letterSpacing: "0.04em" }}
-              >
-                7093523751
-              </p>
-              <p className="caption text-dim" style={{ marginTop: "0.1rem" }}>
-                Call or WhatsApp Mon-Sat, 10AM-7PM
-              </p>
-            </div>
-          </div>
-
-          {/* Email */}
-          <div
-            className="card-inset"
-            style={{ padding: "1.25rem", display: "flex", alignItems: "center", gap: "0.75rem" }}
-          >
-            <div
-              style={{
-                width: 38,
-                height: 38,
-                borderRadius: "10px",
-                background: "rgba(234,179,8,0.10)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexShrink: 0,
-              }}
-            >
-              <Mail size={16} style={{ color: "#eab308" }} />
-            </div>
-            <div>
-              <p
-                className="mono"
-                style={{ fontSize: "0.88rem", fontWeight: 600, color: "var(--c-text)", letterSpacing: "0.02em" }}
-              >
-                info@inspedu.in
-              </p>
-              <p className="caption text-dim" style={{ marginTop: "0.1rem" }}>
-                We respond within 24 hours
-              </p>
-            </div>
-          </div>
-
-          {/* Social */}
-          <div className="card-inset" style={{ padding: "1.25rem" }}>
-            <p
-              className="caption text-muted"
-              style={{ marginBottom: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em" }}
-            >
-              Follow us
-            </p>
-            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-              <a
-                href="https://www.youtube.com/c/INDIANSCHOOLOFPHYSICSnitin"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-ghost"
-                style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontSize: "0.8rem", padding: "0.45rem 0.9rem" }}
-              >
-                <PlayCircle size={14} style={{ color: "#ff4444" }} />
-                YouTube
-              </a>
-              <a
-                href="https://twitter.com/nitin_INSP"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-ghost"
-                style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontSize: "0.8rem", padding: "0.45rem 0.9rem" }}
-              >
-                <Share2 size={14} style={{ color: "#1da1f2" }} />
-                Twitter
-              </a>
-              <a
-                href="https://www.facebook.com/profile.php?id=100063935626795"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-ghost"
-                style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontSize: "0.8rem", padding: "0.45rem 0.9rem" }}
-              >
-                <Globe size={14} style={{ color: "#1877f2" }} />
-                Facebook
-              </a>
-            </div>
-          </div>
-
-          {/* Desktop Apps */}
-          <div className="card-inset" style={{ padding: "1.25rem" }}>
-            <p
-              className="caption text-muted"
-              style={{ marginBottom: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em" }}
-            >
-              Download Desktop App
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-              <a
-                href="/downloads/INSP-Setup.exe"
-                download
-                className="btn btn-secondary"
-                style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", justifyContent: "center" }}
-              >
-                <Monitor size={14} />
-                Download for Windows (.exe)
-              </a>
-              <a
-                href="/downloads/INSP.dmg"
-                download
-                className="btn btn-ghost"
-                style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontSize: "0.85rem", justifyContent: "center" }}
-              >
-                <Apple size={14} />
-                Download for Mac (.dmg)
-              </a>
-            </div>
-          </div>
-
-          {/* Browser note */}
-          <p
-            className="body-sm text-muted"
-            style={{
-              lineHeight: 1.65,
-              borderLeft: "2px solid var(--c-border)",
-              paddingLeft: "0.75rem",
-            }}
-          >
-            INSP portal is optimized for Chrome, Firefox, Edge, and Safari. Use a
-            desktop or laptop for best experience.
+      <section style={{ padding: "3.5rem 0 2.5rem", borderBottom: "1px solid var(--c-border)" }}>
+        <div className="container">
+          <Badge variant="accent" style={{ marginBottom: "0.75rem" }}>
+            Get in Touch
+          </Badge>
+          <h1 className="display-lg" style={{ marginBottom: "0.85rem" }}>
+            Contact INSP
+          </h1>
+          <p className="body-lg" style={{ maxWidth: 640 }}>
+            For course queries, technical support, or partnership inquiries. We read every message.
           </p>
         </div>
+      </section>
 
-        {/* RIGHT – Contact Form */}
-        <div className="card" style={{ padding: "2rem" }}>
-          <h2
-            className="heading"
-            style={{ fontSize: "1.2rem", fontWeight: 600, marginBottom: "0.4rem" }}
-          >
-            Send a message
-          </h2>
-          <p
-            className="body-sm text-muted"
-            style={{ marginBottom: "1.75rem", lineHeight: 1.6 }}
-          >
-            We read every message. For urgent queries, please call.
-          </p>
+      {/* MAIN 2-COLUMN RESPONSIVE LAYOUT */}
+      <section style={{ padding: "3rem 0" }}>
+        <div className="container">
+          <div className="grid-2" style={{ alignItems: "start" }}>
 
-          <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1.1rem" }}>
+            {/* LEFT – Contact Info */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
 
-            {/* Name */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-              <label
-                htmlFor="contact-name"
-                className="caption"
-                style={{ color: "var(--c-text-muted, #94a3b8)", letterSpacing: "0.05em", textTransform: "uppercase" }}
+              {/* Helpline */}
+              <div
+                className="card-inset"
+                style={{ padding: "1.25rem", display: "flex", alignItems: "center", gap: "0.75rem" }}
               >
-                Full Name
-              </label>
-              <input
-                id="contact-name"
-                className="input"
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                placeholder="Your full name"
-                required
-                style={{ width: "100%", boxSizing: "border-box" }}
-              />
-            </div>
+                <div
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: "10px",
+                    background: "rgba(99,102,241,0.12)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                  }}
+                >
+                  <Phone size={18} style={{ color: "var(--c-accent)" }} />
+                </div>
+                <div>
+                  <p
+                    className="mono"
+                    style={{ fontSize: "1rem", fontWeight: 600, color: "var(--c-text)", letterSpacing: "0.04em" }}
+                  >
+                    7093523751
+                  </p>
+                  <p className="caption text-dim" style={{ marginTop: "0.1rem" }}>
+                    Call or WhatsApp Mon-Sat, 10AM-7PM
+                  </p>
+                </div>
+              </div>
 
-            {/* Email */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-              <label
-                htmlFor="contact-email"
-                className="caption"
-                style={{ color: "var(--c-text-muted, #94a3b8)", letterSpacing: "0.05em", textTransform: "uppercase" }}
+              {/* Email */}
+              <div
+                className="card-inset"
+                style={{ padding: "1.25rem", display: "flex", alignItems: "center", gap: "0.75rem" }}
               >
-                Email Address
-              </label>
-              <input
-                id="contact-email"
-                className="input"
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                placeholder="your@email.com"
-                required
-                style={{ width: "100%", boxSizing: "border-box" }}
-              />
-            </div>
+                <div
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: "10px",
+                    background: "rgba(234,179,8,0.12)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                  }}
+                >
+                  <Mail size={18} style={{ color: "#eab308" }} />
+                </div>
+                <div>
+                  <p
+                    className="mono"
+                    style={{ fontSize: "0.9rem", fontWeight: 600, color: "var(--c-text)" }}
+                  >
+                    info@inspedu.in
+                  </p>
+                  <p className="caption text-dim" style={{ marginTop: "0.1rem" }}>
+                    We respond within 24 hours
+                  </p>
+                </div>
+              </div>
 
-            {/* Subject */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-              <label
-                htmlFor="contact-subject"
-                className="caption"
-                style={{ color: "var(--c-text-muted, #94a3b8)", letterSpacing: "0.05em", textTransform: "uppercase" }}
-              >
-                Subject
-              </label>
-              <select
-                id="contact-subject"
-                className="input"
-                name="subject"
-                value={form.subject}
-                onChange={handleChange}
-                required
+              {/* Social */}
+              <div className="card-inset" style={{ padding: "1.25rem" }}>
+                <p
+                  className="caption text-muted"
+                  style={{ marginBottom: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em" }}
+                >
+                  Follow us
+                </p>
+                <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                  <a
+                    href="https://www.youtube.com/c/INDIANSCHOOLOFPHYSICSnitin"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary"
+                    style={{ fontSize: "0.8rem", padding: "0.4rem 0.75rem" }}
+                  >
+                    <PlayCircle size={14} style={{ color: "#ff4444" }} />
+                    YouTube
+                  </a>
+                  <a
+                    href="https://twitter.com/nitin_INSP"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary"
+                    style={{ fontSize: "0.8rem", padding: "0.4rem 0.75rem" }}
+                  >
+                    <Share2 size={14} style={{ color: "#1da1f2" }} />
+                    Twitter
+                  </a>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=100063935626795"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary"
+                    style={{ fontSize: "0.8rem", padding: "0.4rem 0.75rem" }}
+                  >
+                    <Globe size={14} style={{ color: "#1877f2" }} />
+                    Facebook
+                  </a>
+                </div>
+              </div>
+
+              {/* Desktop Apps */}
+              <div className="card-inset" style={{ padding: "1.25rem" }}>
+                <p
+                  className="caption text-muted"
+                  style={{ marginBottom: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em" }}
+                >
+                  Download Desktop App
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  <a
+                    href="/downloads/INSP-Setup.exe"
+                    download
+                    className="btn btn-secondary"
+                    style={{ fontSize: "0.85rem", justifyContent: "center" }}
+                  >
+                    <Monitor size={14} />
+                    Download for Windows (.exe)
+                  </a>
+                  <a
+                    href="/downloads/INSP.dmg"
+                    download
+                    className="btn btn-ghost"
+                    style={{ fontSize: "0.85rem", justifyContent: "center" }}
+                  >
+                    <Apple size={14} />
+                    Download for Mac (.dmg)
+                  </a>
+                </div>
+              </div>
+
+              <p
+                className="body-sm text-muted"
                 style={{
-                  width: "100%",
-                  boxSizing: "border-box",
-                  appearance: "none",
-                  WebkitAppearance: "none",
-                  cursor: "pointer",
-                  backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E\")",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "right 0.9rem center",
-                  paddingRight: "2.5rem",
-                }}
-              >
-                <option value="" disabled>Select a subject...</option>
-                <option value="course">Course Enquiry</option>
-                <option value="support">Technical Support</option>
-                <option value="billing">Billing &amp; Payments</option>
-                <option value="partnership">Partnership</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            {/* Message */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-              <label
-                htmlFor="contact-message"
-                className="caption"
-                style={{ color: "var(--c-text-muted, #94a3b8)", letterSpacing: "0.05em", textTransform: "uppercase" }}
-              >
-                Message
-              </label>
-              <textarea
-                id="contact-message"
-                className="input"
-                name="message"
-                value={form.message}
-                onChange={handleChange}
-                rows={4}
-                placeholder="Describe your query..."
-                required
-                style={{
-                  width: "100%",
-                  boxSizing: "border-box",
-                  resize: "vertical",
-                  minHeight: "110px",
-                  fontFamily: "inherit",
                   lineHeight: 1.6,
+                  borderLeft: "2px solid var(--c-border)",
+                  paddingLeft: "0.75rem",
                 }}
-              />
+              >
+                INSP portal is optimized for Chrome, Firefox, Edge, and Safari.
+              </p>
             </div>
 
-            {/* Submit */}
-            <button
-              type="submit"
-              className="btn btn-primary btn-lg"
-              style={{
-                width: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "0.5rem",
-                marginTop: "0.25rem",
-              }}
-            >
-              <Send size={15} />
-              {submitted ? "Message Sent!" : "Send Message"}
-            </button>
-
-            {submitted && (
-              <p
-                className="body-sm text-green"
-                style={{ textAlign: "center", marginTop: "0.25rem" }}
+            {/* RIGHT – Contact Form */}
+            <div className="card" style={{ padding: "1.5rem" }}>
+              <h2
+                className="heading"
+                style={{ fontSize: "1.15rem", fontWeight: 600, marginBottom: "0.35rem" }}
               >
-                We will get back to you within 24 hours.
+                Send a message
+              </h2>
+              <p
+                className="body-sm text-muted"
+                style={{ marginBottom: "1.5rem" }}
+              >
+                We read every message. For urgent queries, please call.
               </p>
-            )}
-          </form>
-        </div>
-      </div>
 
-      {/* DIVIDER */}
-      <div className="container">
-        <div className="divider" style={{ margin: "0 0 3rem 0" }} />
-      </div>
+              <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+                  <label
+                    htmlFor="contact-name"
+                    className="caption"
+                    style={{ letterSpacing: "0.05em", textTransform: "uppercase" }}
+                  >
+                    Full Name
+                  </label>
+                  <input
+                    id="contact-name"
+                    className="input"
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder="Your full name"
+                    required
+                  />
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+                  <label
+                    htmlFor="contact-email"
+                    className="caption"
+                    style={{ letterSpacing: "0.05em", textTransform: "uppercase" }}
+                  >
+                    Email Address
+                  </label>
+                  <input
+                    id="contact-email"
+                    className="input"
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+                  <label
+                    htmlFor="contact-subject"
+                    className="caption"
+                    style={{ letterSpacing: "0.05em", textTransform: "uppercase" }}
+                  >
+                    Subject
+                  </label>
+                  <select
+                    id="contact-subject"
+                    className="input"
+                    name="subject"
+                    value={form.subject}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="" disabled>Select query subject</option>
+                    <option value="Course Query">Course Query</option>
+                    <option value="Technical Support">Technical Support</option>
+                    <option value="Payment Issue">Payment Issue</option>
+                    <option value="Partnership / Other">Partnership / Other</option>
+                  </select>
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+                  <label
+                    htmlFor="contact-message"
+                    className="caption"
+                    style={{ letterSpacing: "0.05em", textTransform: "uppercase" }}
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    className="input"
+                    name="message"
+                    rows={4}
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Write your message here..."
+                    required
+                    style={{ resize: "vertical" }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  style={{ width: "100%", justifyContent: "center", marginTop: "0.5rem" }}
+                >
+                  <Send size={15} />
+                  Send Message
+                </button>
+
+                {submitted && (
+                  <p className="caption text-green" style={{ textAlign: "center", fontWeight: 600 }}>
+                    Message sent successfully!
+                  </p>
+                )}
+
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </section>
 
       {/* FAQ SECTION */}
-      <div className="section" style={{ paddingBottom: "5rem" }}>
-        <div className="container" style={{ maxWidth: "740px" }}>
-          <div style={{ marginBottom: "2rem" }}>
-            <span
-              className="badge badge-subtle"
-              style={{ display: "inline-flex", marginBottom: "1rem" }}
-            >
-              FAQ
-            </span>
-            <h2 className="display-md" style={{ marginBottom: "0.5rem" }}>
-              Common questions
-            </h2>
-            <p className="body-sm text-muted">
-              Can not find what you are looking for? Reach out directly.
-            </p>
+      <section style={{ padding: "3rem 0 4rem", borderTop: "1px solid var(--c-border)", background: "var(--c-surface)" }}>
+        <div className="container" style={{ maxWidth: 840 }}>
+          <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+            <Badge variant="gold" style={{ marginBottom: "0.5rem" }}>Support</Badge>
+            <h2 className="display-md">Frequently Asked Questions</h2>
           </div>
 
-          <div>
-            {FAQS.map((faq, i) => (
+          <div className="card" style={{ padding: "1rem 1.5rem" }}>
+            {FAQS.map((faq, idx) => (
               <FAQItem
-                key={i}
+                key={idx}
                 faq={faq}
-                index={i}
+                index={idx}
                 openIndex={openFAQ}
                 setOpenIndex={setOpenFAQ}
               />
             ))}
           </div>
-
-          {/* CTA card */}
-          <div
-            style={{
-              marginTop: "2.5rem",
-              padding: "1.5rem",
-              borderRadius: "12px",
-              background: "var(--c-surface, rgba(255,255,255,0.03))",
-              border: "1px solid var(--c-border)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "1rem",
-              flexWrap: "wrap",
-            }}
-          >
-            <div>
-              <p className="heading" style={{ fontWeight: 600, marginBottom: "0.25rem" }}>
-                Still have questions?
-              </p>
-              <p className="body-sm text-muted">Our team is ready to help.</p>
-            </div>
-            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-              <a
-                href="tel:7093523751"
-                className="btn btn-primary"
-                style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
-              >
-                <Phone size={14} />
-                Call Us
-              </a>
-              <a
-                href="mailto:info@inspedu.in"
-                className="btn btn-secondary"
-                style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
-              >
-                <Mail size={14} />
-                Email Us
-              </a>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+    </main>
   );
 }

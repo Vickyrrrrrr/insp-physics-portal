@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
-import ThemeSwitcher from './components/ThemeSwitcher';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import PackagesPage from './pages/PackagesPage';
@@ -12,13 +11,31 @@ import MerchandisePage from './pages/MerchandisePage';
 import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 
+const getSystemTheme = () => {
+  if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    return 'v2'; // INSP White & Royal Blue Light Mode
+  }
+  return 'v1'; // Obsidian Dark Mode
+};
+
 export default function App() {
   const [page, setPage] = useState('home');
-  const [theme, setTheme] = useState('v1'); // 'v1' (Obsidian) | 'v2' (INSP Cobalt)
+  const [theme, setTheme] = useState(getSystemTheme);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
+
+  // Listen for OS system theme changes
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e) => {
+      setTheme(e.matches ? 'v1' : 'v2');
+    };
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   const setPageAndScroll = (id) => {
     setPage(id);
@@ -41,21 +58,11 @@ export default function App() {
     }
   };
 
-  const fullscreenPages = ['login'];
-  const isFullscreen = fullscreenPages.includes(page);
-
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--c-bg)' }}>
-      <Nav activePage={page} setPage={setPageAndScroll} />
-
-      <main style={{ flex: 1 }}>
-        {renderPage()}
-      </main>
-
-      {!isFullscreen && <Footer setPage={setPageAndScroll} />}
-
-      {/* Floating Aesthetic Theme Control Pill (Bottom Right) */}
-      <ThemeSwitcher theme={theme} setTheme={setTheme} />
+    <div style={{ minHeight: '100vh', background: 'var(--c-bg)', color: 'var(--c-text)' }}>
+      <Nav activePage={page} setPage={setPageAndScroll} theme={theme} setTheme={setTheme} />
+      {renderPage()}
+      <Footer setPage={setPageAndScroll} />
     </div>
   );
 }

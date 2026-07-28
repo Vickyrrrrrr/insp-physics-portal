@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 
 const navLinks = [
   { id: 'home',        label: 'Home' },
@@ -12,7 +12,7 @@ const navLinks = [
   { id: 'contact',     label: 'Contact' },
 ];
 
-export default function Nav({ activePage, setPage }) {
+export default function Nav({ activePage, setPage, theme, setTheme }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -26,6 +26,10 @@ export default function Nav({ activePage, setPage }) {
     setPage(id);
     setOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === 'v1' ? 'v2' : 'v1');
   };
 
   return (
@@ -84,8 +88,26 @@ export default function Nav({ activePage, setPage }) {
           ))}
         </nav>
 
-        {/* Action CTAs & Mobile Toggle */}
+        {/* Action CTAs, Theme Toggle & Mobile Toggle */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          
+          {/* Sleek Minimalist Sun / Moon Theme Toggle */}
+          <button 
+            onClick={toggleTheme} 
+            title={theme === 'v1' ? 'Switch to INSP Light Mode' : 'Switch to Dark Mode'}
+            className="btn btn-ghost" 
+            style={{ 
+              padding: '0.45rem', 
+              borderRadius: 8,
+              color: 'var(--c-text-muted)',
+              display: 'flex',
+              alignItems: 'center',
+              justify: 'center'
+            }}
+          >
+            {theme === 'v1' ? <Sun size={17} strokeWidth={1.5} color="var(--c-amber)" /> : <Moon size={17} strokeWidth={1.5} color="var(--c-accent)" />}
+          </button>
+
           <button onClick={() => go('login')} className="btn btn-ghost desktop-nav" style={{ fontSize: '0.82rem', padding: '0.35rem 0.75rem' }}>
             Sign in
           </button>
@@ -128,7 +150,7 @@ export default function Nav({ activePage, setPage }) {
           padding: '1.25rem',
           display: 'flex', 
           flexDirection: 'column', 
-          justifyContent: 'space-between',
+          justify: 'space-between',
           borderTop: '1px solid var(--c-border)',
           overflowY: 'auto'
         }}>

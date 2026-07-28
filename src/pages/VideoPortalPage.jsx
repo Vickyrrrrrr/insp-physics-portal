@@ -49,7 +49,7 @@ export default function VideoPortalPage({ setPage }) {
   });
 
   return (
-    <main style={{ paddingTop: 60, minHeight: '100vh' }}>
+    <main style={{ paddingTop: 84, minHeight: '100vh' }}>
       
       {/* Hero Header */}
       <div style={{ padding: '4rem 0 2.5rem', borderBottom: '1px solid var(--c-border)' }}>

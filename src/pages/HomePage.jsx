@@ -3,8 +3,6 @@ import { ArrowRight, CheckCircle2, Video, FileText, BookOpen } from 'lucide-reac
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { Badge } from '../components/ui/Badge';
-import heroShowcaseImg from '../assets/hero_showcase.jpg';
-import nitinSirImg from '../assets/nitin_sir.jpg';
 
 export default function HomePage({ setPage }) {
   const go = (id) => {
@@ -40,26 +38,6 @@ export default function HomePage({ setPage }) {
               <Video size={16} /> Video Portal Masterclasses
             </Button>
           </div>
-
-          {/* Realistic Widescreen Hero Showcase Image Banner */}
-          <Card style={{ overflow: 'hidden', marginBottom: '2.5rem', border: '1px solid var(--c-border-hover)' }}>
-            <div style={{ position: 'relative', width: '100%', height: 'auto', aspectRatio: '16/8', overflow: 'hidden', background: '#09090b' }}>
-              <img 
-                src={heroShowcaseImg} 
-                alt="INSP Physics Dashboard" 
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
-              />
-              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '1.5rem', background: 'linear-gradient(to top, rgba(9,9,11,0.95), transparent)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-                <div>
-                  <span className="badge badge-accent">INSP 3D Interactive Masterclass Engine</span>
-                  <p className="heading" style={{ color: '#fff', fontSize: '1.05rem', marginTop: 2 }}>Real-time 3D Vector Mechanics & Pathfinder Problem Workspace</p>
-                </div>
-                <Button variant="secondary" size="sm" onClick={() => go('video')}>
-                  Launch Portal Preview <ArrowRight size={14} />
-                </Button>
-              </div>
-            </div>
-          </Card>
 
           <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', borderTop: '1px solid var(--c-border)', paddingTop: '1.5rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--c-text-muted)' }}>
@@ -103,7 +81,7 @@ export default function HomePage({ setPage }) {
         </div>
       </section>
 
-      {/* About Preview with Realistic Faculty Portrait */}
+      {/* About Preview */}
       <section style={{ padding: '4.5rem 0', borderBottom: '1px solid var(--c-border)' }}>
         <div className="container">
           <div className="grid-2" style={{ alignItems: 'center' }}>
@@ -125,19 +103,20 @@ export default function HomePage({ setPage }) {
             </div>
 
             <Card style={{ padding: '1.75rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginBottom: '1.25rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
                 <div style={{
-                  width: 64, height: 64, borderRadius: '50%',
-                  overflow: 'hidden',
-                  border: '2px solid var(--c-accent)',
-                  flexShrink: 0
+                  width: 48, height: 48, borderRadius: '50%',
+                  background: 'var(--c-surface-subtle)',
+                  border: '1px solid var(--c-border)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontWeight: 700, fontSize: '1.1rem', color: 'var(--c-accent)'
                 }}>
-                  <img src={nitinSirImg} alt="Nitin Sachan Sir" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  NS
                 </div>
                 <div>
-                  <h3 className="heading" style={{ fontSize: '1.15rem' }}>Nitin Sachan Sir</h3>
+                  <h3 className="heading">Nitin Sachan Sir</h3>
                   <p className="caption" style={{ color: 'var(--c-text-muted)' }}>Founder & Chief Educator, INSP</p>
-                  <p className="mono caption" style={{ color: 'var(--c-accent)', fontWeight: 600 }}>B.Tech • IIT Madras (IITM)</p>
+                  <p className="mono caption" style={{ color: 'var(--c-accent)' }}>B.Tech • IIT Madras (IITM)</p>
                 </div>
               </div>
 
